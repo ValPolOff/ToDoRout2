@@ -28,18 +28,22 @@ class PostController {
         return res.json(post)
     }
     async filterComp (req,res) {
-        const {sort} = req.query
+        let {sort, limit, page} = req.query
+        //const [limit, page] = req.query
+        page = page || 1
+        limit = limit || 5
+        let offset = page*limit-limit
         //const post;
-        sort === 'true' ? res.json(await Post.findAll({where:{completed:true}})) : 
-        sort === 'false' ? res.json(await Post.findAll({where:{completed:false}})) : 
-        sort === "ASC" ? res.json(await Post.findAll({where:{},order:[["createdAt",'ASC']]})) :
-        sort === "DESC" ? res.json(await Post.findAll({where:{},order:[["createdAt",'DESC']]})) :
-        sort === "Today" ? res.json(await Post.findAll({
+        sort === 'true' ? res.json(await Post.findAndCountAll({where:{completed:true}, limit,offset})) : 
+        sort === 'false' ? res.json(await Post.findAndCountAll({where:{completed:false}, limit,offset})) : 
+        sort === "ASC" ? res.json(await Post.findAndCountAll({where:{},order:[["createdAt",'ASC']], limit,offset})) :
+        sort === "DESC" ? res.json(await Post.findAndCountAll({where:{},order:[["createdAt",'DESC']], limit,offset})) :
+        sort === "Today" ? res.json(await Post.findAndCountAll({
             where:{
             createdAt : {
                 [Op.lt]:new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + (new Date().getUTCDate().toString() <= '9' ? '0' + new Date().getUTCDate().toString():new Date().getUTCDate().toString())}}
             })) : 
-        res.json(await Post.findAll());
+        res.json(await Post.findAll({limit,offset}));
         //new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + new Date().getUTCDate().toString() + 'T'+ new Date().getUTCHours().toString() + '-'+ new Date().getUTCMinutes().toString() + '-' + new Date().getUTCMilliseconds().toString() + 'Z'
         //return res.json(post)
         console.log(new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + (new Date().getUTCDate().toString() <= '9' ? '0' + new Date().getUTCDate().toString():new Date().getUTCDate().toString()))
