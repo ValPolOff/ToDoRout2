@@ -7,7 +7,6 @@ import Image from 'next/image'
 import s from './PopUp.module.css'
 //import Modal from '../Modal/Modal'
 import React, { ReactNode, createContext, useContext, useState } from 'react';
-import { document } from "postcss";
 import ModalDelete from "../Modal/ModalDelete";
 import ModalReName from "../Modal/ModalReName";
 
@@ -51,7 +50,7 @@ export default function PopUp (props:ModalType) {
            
         </div>
       )}
-       <ModalDelete isOpen={isOpen} toggle={toggle} deleteIndex={props.index} setObjTask={props.setObjTask} objTask = {props.objTask} value={value}/>
+       <ModalDelete isOpen={isOpen} toggle={toggle} deleteIndex={props.index} /*setObjTask={props.setObjTask} objTask = {props.objTask}*/ value={value}/>
        <ModalReName isOpen={isOpen} toggle={toggle} task={props.setObjTask} objTask = {props.objTask} value={value} index={props.index}/>
     </>
   )

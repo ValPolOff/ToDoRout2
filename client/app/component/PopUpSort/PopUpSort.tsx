@@ -16,8 +16,8 @@ interface ModalType {
       time: string;
       performance: boolean;
   }[];
-    setSort: (obj:number) => void;
-    sort: number;
+    setSort: (obj:string) => void;
+    
   }
 
 export default function PopUpSort (props:ModalType) {
@@ -31,15 +31,15 @@ export default function PopUpSort (props:ModalType) {
             {props.children}
 
             <div className={s.all}>
-              <button className={s.allAll}  onClick={() => {props.name('All'), props.setSort(3)}}>
+              <button className={s.allAll}  onClick={() => {props.name('All'), props.setSort('')}}>
                 <Image src='done 1 (1).svg' width={25} height={25} alt='yesAll'/>
                 All
                 </button>
-              <button className={s.allDone}  onClick={() => (props.name('Done'),props.setSort(2))}>
+              <button className={s.allDone}  onClick={() => (props.name('Done'),props.setSort('true'))}>
                <Image src='done 1 (1).svg' width={25} height={25} alt='yesDone'/>
                Done
               </button>
-              <button className={s.allUndone}  onClick={() => {props.name('Undone'), props.setSort(1)}}>
+              <button className={s.allUndone}  onClick={() => {props.name('Undone'), props.setSort('false')}}>
                 <Image src='done 1 (1).svg' width={25} height={25} alt='yesUndone'/>
                 Undone 
                 </button>

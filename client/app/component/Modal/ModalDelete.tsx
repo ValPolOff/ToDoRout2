@@ -1,41 +1,20 @@
 import React, { ReactNode, useState } from "react";
 import s from './Modal.module.css'
 import Image from "next/image";
-import useModal from "@/app/hook/useModal";
+import { useDeleteTaskMutation } from "../api/api";
 
 interface ModalType {
     children?: ReactNode;
     isOpen: boolean;
     toggle: () => void;
     deleteIndex:number;
-    setObjTask: (obj:{ id: number; text: string; time: string; performance:boolean}[]) => void;
-    objTask: {
-        id: number;
-        text: string;
-        time: string;
-        performance: boolean;
-    }[];
     value:string;
-    //value: (obj:string) => void;
-    /*butt: string;//
-    name: (obj:string) => void;
-    task: (obj:string[]) => void;*/
   }
 
 export default function ModalDelete (props: ModalType) {
-    //const { isOpen, toggle } = useModal();
-    
-    const DeleteTask = () => {
-      const obj = [...props.objTask];
-      const indexX = [...props.objTask].findIndex(e=>e.id===props.deleteIndex)
-      obj.splice(indexX,1);
-      /*[...props.objTask].map((e)=>{
-        e.id === props.deleteIndex ? obj.splice(props.deleteIndex,1):obj;
-        //console.log(e.id === props.deleteIndex ? obj.splice(props.deleteIndex,1):obj)
-        console.log()
-      })*/
-      return obj
-    }
+
+    const [deleteTask] = useDeleteTaskMutation()
+
     return (
         <>
           {props.isOpen && props.value == '2' && (
@@ -46,7 +25,7 @@ export default function ModalDelete (props: ModalType) {
                   <div className={s.h1}>Delete task</div>
                   <span className={s.areYou}>Are you sure about deleting this task?</span>
                   <div className={s.blockH1}>
-                    <button className={s.delete} onClick={() => {props.setObjTask(DeleteTask()),props.toggle()}} autoFocus>
+                    <button className={s.delete} onClick={() => {deleteTask({id:props.deleteIndex}),props.toggle()}} autoFocus>
                       <Image alt='okTask' src='material-symbols_today (1).svg' width={25} height={25} />
                       Delete
                     </button>

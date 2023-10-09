@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import s from './Modal.module.css'
 import Image from "next/image";
 import useModal from "@/app/hook/useModal";
+import { useUpdateTaskMutation } from "../api/api";
 
 interface ModalType {
     children?: ReactNode;
@@ -18,49 +19,21 @@ interface ModalType {
     index:number;
   }
 
-export default function ModalReName (props: ModalType) {
-    //const { isOpen, toggle } = useModal();
-
-    const [value,setValue] = useState('')
-    
+export default function ModalReName (props: ModalType) { 
     const [taskN, setTask] = useState('')
-
-    let pushText = () => {
-
-        //const A = [...props.objTask];
-        //A[props.index].text = taskN
-        //console.log( A.find((e)=>e.id === props.index))
-        //console.log( A.map((e)=>{e.id === props.index ? e.text=taskN: e.text}))
-        const A = [...props.objTask].map((e)=>{
-          e.id === props.index ? e.text=taskN: e.text
-          return e
-        })
-        //console.log(props.index)
-        
-        props.task(A)
-      //([...props.objTask, {id:props.objTask.length+1, text:taskN, time:'12:00:00', performance:props.objTask[].performance}])
-      
-    }
       const [errorText, setErrorText] = useState('')
-      
-      /*useEffect(()=>{
-        document.addEventListener('keydown', function(event) { if (event.code == "Enter") {taskN.length === 0 ? setErrorText('') : (pushText(),setErrorText(''),props.toggle(),setTask('')) }});
-      },[taskN])
-      useEffect(()=>{
-        document.addEventListener('keydown', function(event) { if (event.code == "Escape") {taskN.length === 0 ? setErrorText('') : (props.toggle(),setErrorText(''),setTask(''))}});
-      },[taskN])*/
-
+      const [updateTask] = useUpdateTaskMutation()
       const handleKeyDown = (event:any) => {
         if (event.key === 'Enter') {
           console.log('Int')
-          props.objTask.map((e)=>e.text).includes(taskN) || taskN.replaceAll(' ','')==='' || taskN.length === 0 ? setErrorText('You did not enter text or such a task already exists') : (pushText(),setErrorText(''),props.toggle(),setTask(''))
+          props.objTask.map((e)=>e.text).includes(taskN) || taskN.replaceAll(' ','')==='' || taskN.length === 0 ? setErrorText('You did not enter text or such a task already exists') : (updateTask({id:props.index,text:taskN}),setErrorText(''),props.toggle(),setTask(''))
         } else if (event.key === 'Escape') {
           console.log('Esc')
           props.toggle(),setErrorText(''),setTask('')
         }
       };
 
-
+    
     return (
         <>
           {props.isOpen && props.value === '1' && (
@@ -71,7 +44,7 @@ export default function ModalReName (props: ModalType) {
                   <div className={s.h1}>Rename task</div>
                   <input onKeyDown={handleKeyDown} className={s.interTask} placeholder="Enter text..." value={taskN} onChange={(event) => setTask(event.target.value)} autoFocus></input>
                   <div className={s.blockH1}>
-                    <button className={s.save} onClick={() => {props.objTask.map((e)=>e.text).includes(taskN) || taskN.replaceAll(' ','')==='' || taskN.length === 0 ? setErrorText('You did not enter text or such a task already exists') : (pushText(),setErrorText(''),props.toggle(),setValue(''))}}>
+                    <button className={s.save} onClick={() => {props.objTask.map((e)=>e.text).includes(taskN) || taskN.replaceAll(' ','')==='' || taskN.length === 0 ? setErrorText('You did not enter text or such a task already exists') : (updateTask({id:props.index,text:taskN}),setErrorText(''),props.toggle(),setTask(''))}}>
                       <Image alt='okTask' src='Check_ring.svg' width={25} height={25} />
                       Save
                     </button>

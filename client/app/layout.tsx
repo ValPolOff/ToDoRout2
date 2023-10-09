@@ -1,9 +1,12 @@
+"use client" 
 import './globals.css'
 import type { Metadata } from 'next'
 //import { Inter } from 'next/font/google'
 import Header from './component/Header/Header'
 
 import Panel from './component/panel/Panel'
+import { Provider } from 'react-redux'
+import { store } from './component/store/store'
 
 
 //const inter = Inter({ subsets: ['latin'] })
@@ -21,10 +24,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        {children}
-        
-        <Panel/>
+        <Provider store={store}>
+          <Header />
+          {children}
+          
+          <Panel/>
+        </Provider>
         </body>
     </html>
   )

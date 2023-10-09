@@ -21,7 +21,7 @@ class PostController {
         return res.json(post)
     }
     async update (req,res) {
-        const {text,id} = req.body
+        const {id} = req.body
         const post = await Post.update(req.body,{
             where:{id:id}
         })
@@ -41,9 +41,9 @@ class PostController {
         sort === "Today" ? res.json(await Post.findAndCountAll({
             where:{
             createdAt : {
-                [Op.lt]:new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + (new Date().getUTCDate().toString() <= '9' ? '0' + new Date().getUTCDate().toString():new Date().getUTCDate().toString())}}
+                [Op.gt]:new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + (new Date().getUTCDate().toString() <= '9' ? '0' + new Date().getUTCDate().toString():new Date().getUTCDate().toString()),}},limit,offset
             })) : 
-        res.json(await Post.findAll({limit,offset}));
+        res.json(await Post.findAndCountAll({limit,offset}));
         //new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + new Date().getUTCDate().toString() + 'T'+ new Date().getUTCHours().toString() + '-'+ new Date().getUTCMinutes().toString() + '-' + new Date().getUTCMilliseconds().toString() + 'Z'
         //return res.json(post)
         console.log(new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + (new Date().getUTCDate().toString() <= '9' ? '0' + new Date().getUTCDate().toString():new Date().getUTCDate().toString()))
