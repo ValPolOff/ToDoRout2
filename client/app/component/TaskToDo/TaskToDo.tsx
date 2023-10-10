@@ -46,7 +46,7 @@ export default function TaskToDo (props:ModalType) {
                             <button onClick={() => {updateTask({id:props.index,completed:!props.text1.completed===true})}}>  
                                 {props.text1.completed===true ? (<Image alt='ok' src='Check_ring.svg' width={25} height={25} />):(<Image alt='ok' src='Group.svg' width={25} height={25} />)}
                             </button>
-                            {<div>{props.text1.text.length > 10 ? props.text1.text.substring(0,10) + '...': props.text1.text}</div>}
+                            {<div>{props.text1?.text?.length > 10 ? props.text1.text.substring(0,10) + '...': props.text1.text}</div>}
                         </div>
 
                         <div className={s.task2}>

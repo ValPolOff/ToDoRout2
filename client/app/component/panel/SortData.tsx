@@ -51,7 +51,7 @@ export default function SortData (props:ModalType) {
                 </button>
             </div>
             <div className={s.inputPageTitle}>Enter page</div>
-            <input className={s.inputPage} onKeyDown={handleKeyDown} value={+valuePage >=  Math.ceil(page/5) ?  Math.ceil(page/5) : +valuePage <= 0 ? '' : +valuePage} onChange={(event) => setValuePage(event.target.value)}></input>
+            <input className={s.inputPage} onKeyDown={handleKeyDown} placeholder={`${Math.ceil(page/5)}`} value={+valuePage >=  Math.ceil(page/5) ?  Math.ceil(page/5) : +valuePage <= 0 ? '' : +valuePage} onChange={(event) => setValuePage(event.target.value)}></input>
         </div>           
     
     )}

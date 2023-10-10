@@ -7,6 +7,7 @@ import Header from './component/Header/Header'
 import Panel from './component/panel/Panel'
 import { Provider } from 'react-redux'
 import { store } from './component/store/store'
+import Auth from './component/Auth/Auth'
 
 
 //const inter = Inter({ subsets: ['latin'] })
@@ -27,8 +28,8 @@ export default function RootLayout({
         <Provider store={store}>
           <Header />
           {children}
+          {false? <Panel/> : <Auth />}
           
-          <Panel/>
         </Provider>
         </body>
     </html>
