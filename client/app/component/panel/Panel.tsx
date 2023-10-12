@@ -2,20 +2,14 @@
 //import "./styles.css";
 
 import useModal from "../../hook/useModal";
-
 import Image from 'next/image'
 import s from './Panel.module.css'
-//import Modal from '../Modal/Modal'
-import React, { ReactNode, createContext, useContext, useState, useEffect } from 'react';
-import { document } from "postcss";
+import React, { useState, useEffect } from 'react';
 import TaskToDo from "../TaskToDo/TaskToDo";
 import ModalSave from "../Modal/ModalSave";
 import PopUpSort from "../PopUpSort/PopUpSort";
-import ModalDelete from "../Modal/ModalDelete";
-import Pagination from "../Pagination/Pagination";
-import PopUp from "../PopUp/PopUp";
 import SortData from "./SortData";
-import axios from "axios";
+
 import { useGetTaskQuery } from "../api/api";
 //import { IPost } from "./IPost";
 
@@ -23,14 +17,7 @@ import { useGetTaskQuery } from "../api/api";
 
 
 export default function Panel() {
-    //console.log(new Date().getFullYear().toString() + '-' + (new Date().getUTCMonth()+1).toString() + '-' + new Date().getUTCDate().toString() + 'T'+ new Date().getUTCHours().toString() + '-'+ new Date().getUTCMinutes().toString() + '-' + new Date().getUTCMilliseconds().toString() + 'Z')
-    //const [textTask, setTextTask] = useState(['Task']);
     //INITIAL STATE
-
-
-
-
-
     const [textTask, setTextTask] = useState([
         {id:1, text:"Task 1", time: '12:30:00', performance:false},
         {id:2, text:"Task 2", time: '12:10:00', performance:false},
@@ -42,7 +29,6 @@ export default function Panel() {
     const [name,setName] = useState('All');
     const [sort,setSort] = useState('ASK')
     const [count,setCount] = useState(1)
-
     
     useEffect(()=>{
         console.log(textTask,'1')
@@ -55,12 +41,10 @@ export default function Panel() {
         console.log(name)
         console.log(data)
 
-        
       useEffect(()=>{
         console.log(sort)
         setSort(sort)
       },[sort])
-
 
     return (
         <div>

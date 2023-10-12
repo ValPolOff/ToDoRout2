@@ -6,11 +6,8 @@ const { Op } = require('sequelize')
 class PostController {
     async create (req,res) {
         const {text,completed} = req.body
+        //const {data} = req.query
         const post = await Post.create({text,completed})
-        return res.json(post)
-    }
-    async getAll (req,res) {
-        const post = await Post.findAll()
         return res.json(post)
     }
     async delete (req,res) {

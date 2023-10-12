@@ -8,7 +8,7 @@ import Panel from './component/panel/Panel'
 import { Provider } from 'react-redux'
 import { store } from './component/store/store'
 import Auth from './component/Auth/Auth'
-
+import React, { useState, useEffect } from 'react';
 
 //const inter = Inter({ subsets: ['latin'] })
 
@@ -22,16 +22,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  //console.log(localStorage.getItem('token'))
   return (
     <html lang="en">
       <body>
         <Provider store={store}>
+          <div>
+            UI To Do
+          </div>
           <Header />
           {children}
-          {false? <Panel/> : <Auth />}
-          
+          {true ? <Auth /> :  <Panel/> }
         </Provider>
-        </body>
+      </body>
     </html>
   )
 }

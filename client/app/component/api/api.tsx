@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ITask } from '../types/ITask'
 import { IData } from '../types/IData';
 
+
+
 export const api = createApi({
     reducerPath: 'api',
     tagTypes:['Task'],
@@ -38,8 +40,18 @@ export const api = createApi({
             }),
             invalidatesTags:['Task']
          }),
+         createUser: builder.mutation<IData, {email:string;password:string}>({
+            query: (user) => ({
+             body: user,
+             url:'/user/registration',
+             method: 'POST',
+ 
+            }),
+            //invalidatesTags:['Task']
+         }),
+         
     })
 
 })
 
-export const {useGetTaskQuery,useCreateTaskMutation,useDeleteTaskMutation,useUpdateTaskMutation} = api;
+export const {useGetTaskQuery,useCreateTaskMutation,useDeleteTaskMutation,useUpdateTaskMutation,useCreateUserMutation} = api;

@@ -5,16 +5,17 @@
     justify-content:center;
     padding: 2%;
     gap: 6%;
-    width: 24vw;
-    height: 24vh;
+    width: 39vw;
+    height: 34vh;
     border-radius: 10px;
     background: rgba(147, 51, 234, 0.06);
     
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    top: 45%;
-    left: 60%;
+    top: 40%;
+    left: 51%;
+    flex-wrap: wrap;
 }   
 
 .inp {
@@ -22,11 +23,27 @@
     border-radius: 5px;
     border: 1px solid rgba(147, 51, 234, 0.06);
     padding-left: 1%;
+    width: 240px;
+    height: 30px;
+    padding-right: 12%; /* added */
 }
 
 .but {
     border-radius: 3px;
     background: white;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 30px;
+}
+
+.password {
+    display: flex;
+    align-self: center;
+    gap: 2%; 
+    position: relative;
+}
+
+.visiblePassword {
+    
+    position: absolute; /* added */
+    right: 5px; /* added */
 }
