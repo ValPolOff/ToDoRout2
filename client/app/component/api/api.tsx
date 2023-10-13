@@ -1,6 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { RootState, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ITask } from '../types/ITask'
 import { IData } from '../types/IData';
+import { IUserToken } from '../types/IUserToken';
+import { getToken } from '../store/token';
 
 
 
@@ -8,7 +10,17 @@ export const api = createApi({
     reducerPath: 'api',
     tagTypes:['Task'],
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:5000/api'
+        baseUrl: 'http://localhost:5000/api',
+        prepareHeaders: (headers/*, { getState }*/) => {
+            /*const user = (getState() as RootState).auth.token
+    
+            if (user) {
+                headers.set('Authorization', `Bearer ${user.token.access}`)
+            }*/
+            headers.set('authorization', `bearer ${getToken()}`);
+    
+            return headers
+        },
     }),
     endpoints: builder => ({
         getTask: builder.query<IData, {sort:string;page:number}>({
@@ -40,7 +52,7 @@ export const api = createApi({
             }),
             invalidatesTags:['Task']
          }),
-         createUser: builder.mutation<IData, {email:string;password:string}>({
+         createUser: builder.mutation<IUserToken, {email:string;password:string}>({
             query: (user) => ({
              body: user,
              url:'/user/registration',
@@ -49,9 +61,31 @@ export const api = createApi({
             }),
             //invalidatesTags:['Task']
          }),
+         getCheck: builder.query<IUserToken, null>({
+            query: () => ({
+             url:'/user/auth',
+            }),
+            //invalidatesTags:['Task']
+         }),
+         createLogin: builder.mutation<IUserToken, {email:string;password:string}>({
+            query: (user) => ({
+             body: user,
+             url:'/user/login',
+             method: 'POST',
+ 
+            }),
+            
+            //invalidatesTags:['Task']
+         }),
          
     })
 
 })
 
-export const {useGetTaskQuery,useCreateTaskMutation,useDeleteTaskMutation,useUpdateTaskMutation,useCreateUserMutation} = api;
+export const {useGetTaskQuery,
+            useCreateTaskMutation,
+            useDeleteTaskMutation,
+            useUpdateTaskMutation,
+            useCreateUserMutation,
+            useGetCheckQuery, 
+            useCreateLoginMutation} = api;

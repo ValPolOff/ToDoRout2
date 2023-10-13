@@ -12,13 +12,12 @@ const User = sequelize.define('User',{
 const Post = sequelize.define('Post',{
     id:{type:DataTypes.INTEGER, primaryKey:true,autoIncrement:true},
     text:{type:DataTypes.STRING},
-    data:{type:DataTypes.STRING},
+    data:{type:DataTypes.INTEGER},
     completed:{type:DataTypes.BOOLEAN, defaultValue: false},
     //role:{type:DataTypes.BOOLEAN, defaultValue: false},
 })
 
-/*User.hasOne(Post)
-Post.belongsTo(User)*/
+
 
 module.exports = {
     User,

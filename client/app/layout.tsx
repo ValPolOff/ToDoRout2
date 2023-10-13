@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import { store } from './component/store/store'
 import Auth from './component/Auth/Auth'
 import React, { useState, useEffect } from 'react';
+import { getToken, isAuth } from './component/store/token'
 
 //const inter = Inter({ subsets: ['latin'] })
 
@@ -23,16 +24,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   //console.log(localStorage.getItem('token'))
+
+  const [isOpen, setIsOpen] = useState(false)
+  console.log(isOpen)
+  
+
   return (
     <html lang="en">
       <body>
         <Provider store={store}>
           <div>
-            UI To Do
+            
           </div>
           <Header />
           {children}
-          {true ? <Auth /> :  <Panel/> }
+          {isAuth() && localStorage.getItem('token') !== "undefined" ? <Panel/> : <Auth toggle={setIsOpen} isOpen={isOpen}  />  }
         </Provider>
       </body>
     </html>

@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.createTable('Posts',{
       id:{type:Sequelize.DataTypes.INTEGER, primaryKey:true,autoIncrement:true},
       text:{type:Sequelize.DataTypes.STRING},
-      data:{type:Sequelize.DataTypes.STRING},
+      data:{type:Sequelize.DataTypes.INTEGER},
       completed:{type:Sequelize.DataTypes.BOOLEAN, defaultValue: false},
       createdAt:{type:Sequelize.DataTypes.DATE},
       updatedAt:{type:Sequelize.DataTypes.DATE},
