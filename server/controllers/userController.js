@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {User, Post} = require('../models/models')
 //const {User} = require('../migrations/20231010094628-Create-User-Table')
-
+const validator = require('validator')
 const generateJWT = (id,email,role) => {
     return jwt.sign(
         {id,email,role}, 
@@ -16,8 +16,11 @@ class UserController {
     async registration (req,res,next) {
         const {email,password,role} = req.body
         console.log(email,password)
-        if (!email||!password ){
-            return next(ApiError.badRequest('Не корректный email или password'))
+        if (!password ){
+            return next(ApiError.badRequest('Не корректный password'))
+        }
+        if (!validator.isEmail(email)){
+            return next(ApiError.badRequest('Не корректный email'))
         }
         const condidat = await User.findOne({where:{email}})
         if (condidat) {
@@ -26,7 +29,7 @@ class UserController {
         const hashPassword = await bcrypt.hash(password,5)
         const user = await User.create({email,role,password:hashPassword})
         const token = generateJWT(user.id, user.email,user.role)
-
+        console.log(validator.isEmail(email))
         return res.json({token})
         //res.json(id)
     }

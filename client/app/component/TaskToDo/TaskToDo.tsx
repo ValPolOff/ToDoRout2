@@ -63,7 +63,7 @@ export default function TaskToDo (props:ModalType) {
 
                     </div>
                     <div className={s.tt}>
-                     <PopUp isOpen={isOpen} toggle={toggle} deleteIndex={props.index} setObjTask={props.setObjTask} objTask = {props.objTask} index={props.text1.id}/>
+                        <PopUp isOpen={isOpen} toggle={toggle} deleteIndex={props.index} setObjTask={props.setObjTask} objTask = {props.objTask} index={props.text1.id}/>
                     </div>
                     
                     </div>

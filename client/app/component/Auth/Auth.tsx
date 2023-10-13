@@ -47,7 +47,7 @@ export default function Auth (props:ModalType) {
             //setToken(data2.data?.token)
         }
     }
-    
+    console.log(data2)
     useEffect(()=>{
         if (data.data?.token){
         setToken(data.data?.token)}
@@ -69,13 +69,20 @@ export default function Auth (props:ModalType) {
                     <button className={s.visiblePassword} onClick={()=>{setVisible(visible?false:true)}}>
                         {visible ? <VisibilityOffIcon fontSize="small"></VisibilityOffIcon> :<VisibilityIcon fontSize="small"></VisibilityIcon>  }
                     </button>
-
+                    
             </div>
+
+            
+
             <button className={s.but} onClick={()=>{clisk(),props.toggle(props.isOpen ? false : true)}}>{auth ? 'Registrarion':'Log In' }
             
             </button>
+            <div className={s.errorLoginRegistration}>
+                {auth ? data?.error?.data?.message :data2?.error?.data?.message}
+            </div>
             <a  onClick={() => {auth ? setAuth(false): setAuth(true)}}>{auth ? 'Log In': 'Registrarion'}</a>
             <button></button>
+            
         </div>
     )
 }

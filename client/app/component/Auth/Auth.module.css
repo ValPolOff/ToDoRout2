@@ -4,7 +4,7 @@
     align-items: center;
     justify-content:center;
     padding: 2%;
-    gap: 6%;
+    gap: 10%;
     width: 39vw;
     height: 34vh;
     border-radius: 10px;
@@ -15,7 +15,7 @@
     position: absolute;
     top: 40%;
     left: 51%;
-    flex-wrap: wrap;
+    
 }   
 
 .inp {
@@ -24,7 +24,7 @@
     border: 1px solid rgba(147, 51, 234, 0.06);
     padding-left: 1%;
     width: 240px;
-    height: 30px;
+    height: auto;
     padding-right: 12%; /* added */
 }
 
@@ -47,4 +47,11 @@
     
     position: absolute; /* added */
     right: 5px; /* added */
+}
+
+.errorLoginRegistration
+{   display:initial;
+    position: absolute;
+    top:49%;
+    color: red;
 }

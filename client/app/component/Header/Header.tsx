@@ -5,7 +5,7 @@ import { getToken, isAuth, removeToken, setToken } from '../store/token'
 import jwt_decode from'jwt-decode'
 export default function Header () {
     const jwtDec = () => {
-        return jwt_decode<{email:string,id:number,role:string}>(localStorage.getItem('token')).email
+        return jwt_decode<{email:string,id:number,role:string}>(localStorage.getItem('token') || '{}').email
     }
     return (
         
