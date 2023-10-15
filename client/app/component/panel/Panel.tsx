@@ -70,7 +70,7 @@ export default function Panel() {
                 </div>
 
                 <div className={s.text}>
-                {data?.count /5 <= 1 ? <></>:<SortData count={count} setCount={setCount} textTask={textTask} sort={data?.count}/>}                  
+                {(data?.count ?? count) /5 <= 1 ? <></>:<SortData count={count} setCount={setCount} textTask={textTask} sort={data?.count}/>}                  
                         
                         {   isLoading ? 'Loading...': data?.rows?.map((text1,index)=>{
                         return (

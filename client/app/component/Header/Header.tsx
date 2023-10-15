@@ -3,10 +3,19 @@ import Image from 'next/image'
 import style from './Header.module.css'
 import { getToken, isAuth, removeToken, setToken } from '../store/token'
 import jwt_decode from'jwt-decode'
+import SettingsProfile from '../settingProfile/settingsProfile'
 export default function Header () {
     const jwtDec = () => {
         return jwt_decode<{email:string,id:number,role:string}>(localStorage.getItem('token') || '{}').email
     }
+
+    /*const getInfo = () => {
+        console.log('INFO')
+        return (
+            <SettingsProfile />
+        )
+    }*/
+
     return (
         
         <header className={style.header}>
