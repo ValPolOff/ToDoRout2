@@ -9,6 +9,8 @@ import s from './PopUp.module.css'
 import React, { ReactNode, createContext, useContext, useState } from 'react';
 import ModalDelete from "../Modal/ModalDelete";
 import ModalReName from "../Modal/ModalReName";
+import rename from '../../../public/Group (1).svg'
+import delet from '../../../public/delete 4.svg'
 
 interface ModalType {
     children?: ReactNode;
@@ -40,10 +42,10 @@ export default function PopUp (props:ModalType) {
             
             <div>
               <button onClick={() => { toggle();setValue('1')}}>
-                <Image src='Group (1).svg' width={17} height={17} alt='yesAll' />
+                <Image src={rename} width={17} height={17} alt='yesAll' />
               </button>
               <button onClick={() => { toggle();setValue('2')}}>
-                <Image src='delete 4.svg' width={17} height={17} alt='yesDone' />   
+                <Image src={delet} width={17} height={17} alt='yesDone' />   
               </button>  
             </div>  
           </div> 

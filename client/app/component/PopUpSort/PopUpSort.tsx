@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from "react";
 import s from './PopUpSort.module.css'
 import Image from "next/image";
 import useModal from "@/app/hook/useModal";
+import done1 from '../../../public/done 1 (1).svg'
 
 interface ModalType {
     children?: ReactNode;
@@ -33,15 +34,15 @@ export default function PopUpSort (props:ModalType) {
 
             <div className={s.all}>
               <button className={s.allAll}  onClick={() => {props.name('All'), props.setSort(''),props.count(1)}}>
-                <Image src='done 1 (1).svg' width={25} height={25} alt='yesAll'/>
+                <Image src={done1} width={25} height={25} alt='yesAll'/>
                 All
                 </button>
               <button className={s.allDone}  onClick={() => {props.name('Done'),props.setSort('true'),props.count(1)}}>
-               <Image src='done 1 (1).svg' width={25} height={25} alt='yesDone'/>
+               <Image src={done1} width={25} height={25} alt='yesDone'/>
                Done
               </button>
               <button className={s.allUndone}  onClick={() => {props.name('Undone'), props.setSort('false'),props.count(1)}}>
-                <Image src='done 1 (1).svg' width={25} height={25} alt='yesUndone'/>
+                <Image src={done1} width={25} height={25} alt='yesUndone'/>
                 Undone 
                 </button>
             </div>

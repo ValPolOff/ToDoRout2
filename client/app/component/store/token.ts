@@ -16,10 +16,10 @@ export const removeToken = () => {
 };
 
 export const isAuth = () => {
-  if (typeof window !== 'undefined') {
+ 
         // Perform localStorage action
         return localStorage.getItem('token') !== null
-  }
+  
   //return localStorage.getItem('token') !== null;
 };
 

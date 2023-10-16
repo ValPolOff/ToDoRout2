@@ -1,3 +1,4 @@
+"use client"
 import { useState } from 'react'
 import s from './Auth.module.css'
 import { useCreateLoginMutation, useCreateUserMutation, useGetCheckQuery } from '../api/api'
@@ -8,14 +9,11 @@ import { data } from 'autoprefixer';
 import { getToken, setToken } from '../store/token';
 import React, {useEffect ,ReactNode} from 'react';
 import jwt_decode from 'jwt-decode';
+import Link from 'next/link';
 
-interface ModalType {
-    children?: ReactNode;
-    toggle: (obj:boolean) => void;
-    isOpen:boolean;
-  }
 
-export default function Auth (props:ModalType) {
+
+export default function Auth () {
     const [auth,setAuth] = useState(true)
     const [email, setImail] = useState('')
     const [password, setPassword] = useState('')
@@ -73,12 +71,12 @@ export default function Auth (props:ModalType) {
             </div>
 
             
-
-            <button className={s.but} onClick={()=>{clisk(),props.toggle(props.isOpen ? false : true)}}>{auth ? 'Registrarion':'Log In' }
-            
-            </button>
+            <Link href='/app/task'>
+                <button className={s.but} onClick={()=>{clisk()}}>{auth ? 'Registrarion':'Log In' }
+                </button>
+            </Link>
             <div className={s.errorLoginRegistration}>
-                {auth ? data?.error?.data?.message :data2?.error?.data?.message}
+                {auth ? data?.error?.data?.message : data2?.error?.data?.message}
             </div>
             <a  onClick={() => {auth ? setAuth(false): setAuth(true)}}>{auth ? 'Log In': 'Registrarion'}</a>
             <button></button>

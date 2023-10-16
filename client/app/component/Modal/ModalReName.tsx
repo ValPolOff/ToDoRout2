@@ -3,6 +3,8 @@ import s from './Modal.module.css'
 import Image from "next/image";
 import useModal from "@/app/hook/useModal";
 import { useUpdateTaskMutation } from "../api/api";
+import save from '../../../public/Check_ring.svg'
+import close from '../../../public/material-symbols_today.svg'
 
 interface ModalType {
     children?: ReactNode;
@@ -45,11 +47,11 @@ export default function ModalReName (props: ModalType) {
                   <input onKeyDown={handleKeyDown} className={s.interTask} placeholder="Enter text..." value={taskN} onChange={(event) => setTask(event.target.value)} autoFocus></input>
                   <div className={s.blockH1}>
                     <button className={s.save} onClick={() => {props.objTask.map((e)=>e.text).includes(taskN) || taskN.replaceAll(' ','')==='' || taskN.length === 0 ? setErrorText('You did not enter text or such a task already exists') : (updateTask({id:props.index,text:taskN}),setErrorText(''),props.toggle(),setTask(''))}}>
-                      <Image alt='okTask' src='Check_ring.svg' width={25} height={25} />
+                      <Image alt='okTask' src={save} width={25} height={25} />
                       Save
                     </button>
                     <button className={s.close} onClick={() => {props.toggle(),setErrorText(''),setTask('')}}>
-                      <Image alt='noTask' src='material-symbols_today.svg' width={25} height={25} />
+                      <Image alt='noTask' src={close} width={25} height={25} />
                       Close
                     </button>
                   </div>

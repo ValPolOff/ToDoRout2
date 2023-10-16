@@ -27,20 +27,25 @@ export default function RootLayout({
   //console.log(localStorage.getItem('token'))
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpen1, setIsOpen1] = useState(false)
   console.log(isOpen)
-  
+  useEffect(()=>{
+   setTimeout (() => {if (isAuth() && getToken() !== "undefined" ) {
+      return setIsOpen1(true)
+    } else {
+      return setIsOpen1(false)
+    }},500)
+  },[isOpen])
 
   return (
     <html lang="en">
       <body>
         <Provider store={store}>
-          <div>
-            
-          </div>
-          <Header />
+
+          <Header/>
           {children}
           
-          {isAuth() && localStorage.getItem('token') !== "undefined" ? <Panel/> : <Auth toggle={setIsOpen} isOpen={isOpen}  />  
+          {//isOpen1 ? <Panel isOpen={isOpen} /> : <Auth toggle={setIsOpen} isOpen={isOpen}  />  
           }
         </Provider>
       </body>

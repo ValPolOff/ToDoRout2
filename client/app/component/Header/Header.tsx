@@ -4,10 +4,17 @@ import style from './Header.module.css'
 import { getToken, isAuth, removeToken, setToken } from '../store/token'
 import jwt_decode from'jwt-decode'
 import SettingsProfile from '../settingProfile/settingsProfile'
+import Token from '../token/Token'
+import { ReactNode, useEffect, useState } from 'react'
+import Link from 'next/link'
+import profile from '../../../public/bi_person-circle.svg'
+
+
+
 export default function Header () {
-    const jwtDec = () => {
-        return jwt_decode<{email:string,id:number,role:string}>(localStorage.getItem('token') || '{}').email
-    }
+    /*const jwtDec = () => {
+        return jwt_decode<{email:string,id:number,role:string}>(getToken() || '{}').email
+    }*/
 
     /*const getInfo = () => {
         console.log('INFO')
@@ -16,14 +23,17 @@ export default function Header () {
         )
     }*/
 
+
     return (
         
         <header className={style.header}>
             <div className={style.toDo}>To Do</div>
-            <div className={style.userName}>{!isAuth() ? 'User Name': jwtDec()}</div>
-            <button onClick={removeToken}>
-                <Image src='bi_person-circle.svg' alt={style.imageProf}  width={40} height={40} />
-            </button>
+            <div className={style.userName}>{!isAuth() ? 'User Name': Token()}</div>
+            <Link href='/app/settings'>
+                <button>
+                    <Image src={profile} alt={style.imageProf}  width={40} height={40} />
+                </button>
+            </Link>
         </header>
     )
 }

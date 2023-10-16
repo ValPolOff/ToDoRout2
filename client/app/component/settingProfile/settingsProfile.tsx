@@ -2,6 +2,7 @@ import jwt_decode from'jwt-decode'
 import s from './SettingsProfile.module.css'
 import { useGetTaskQuery } from '../api/api'
 import { removeToken } from '../store/token'
+import Link from 'next/link'
 
 export default function SettingsProfile () {
     const page = 1
@@ -16,7 +17,9 @@ export default function SettingsProfile () {
             <div>{`Email: ${jwtDec().email}`}</div>
             <div>{`id: ${jwtDec().id}`}</div>
             <div>{`Total number of tasks: ${data?.count}`}</div>
-            <button className={s.exit} onClick={removeToken}>Exit</button>
+            <Link href='/app/login'>
+                <button className={s.exit} onClick={removeToken}>Exit</button>
+            </Link>
         </div>
     )
 }
