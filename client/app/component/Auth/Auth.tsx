@@ -6,56 +6,56 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Image from 'next/image';
 import { data } from 'autoprefixer';
-import { getToken, setToken } from '../store/token';
+import { getToken, isAuth, setToken } from '../store/token';
 import React, {useEffect ,ReactNode} from 'react';
 import jwt_decode from 'jwt-decode';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 
 
 export default function Auth () {
+    
     const [auth,setAuth] = useState(true)
     const [email, setImail] = useState('')
     const [password, setPassword] = useState('')
     const [visible, setVisible] = useState(false)
     const [createUser,data] = useCreateUserMutation()
     const [createLogin,data2] = useCreateLoginMutation()
-    //const [createLogin,data] = useCreateLoginMutation()
-    //console.log(data.data?.token)
-    //const token = data.data?.token;
-    //console.log(data.data?.token)
-    
-    /*const storage = (token:string|undefined ) => {
-        localStorage.setItem('token', token)
-    }*/
-    /*const {data} = useGetCheckQuery(localStorage.getItem('token'))
-    console.log(data)*/
-    //localStorage.setItem('token', token)
-    //localStorage.getItem('token', data.token)
 
+    const route = useRouter()
     const clisk = () => {
         if (auth) {
             createUser({email:email,password:password});
-            //props.toggle(!props.isOpen);
-            //setToken(data.data?.token)
+            setTimeout(()=> {if (data){
+            route.push('/app/task')}},500)
+            
 
         } else {
+
             createLogin({email:email,password:password});
-            //props.toggle(!props.isOpen);
-            //setToken(data2.data?.token)
+            setTimeout(()=> {if (data2){
+                route.push('/app/task')}},500)
         }
     }
     console.log(data2)
     useEffect(()=>{
-        if (data.data?.token){
+        if (data?.data){
         setToken(data.data?.token)}
-    },[data])
+    },[data.data])
     useEffect(()=>{
-        if (data2.data?.token){
+        if (data2?.data){
         setToken(data2.data?.token)}
-    },[data2])
+    },[data2.data])
     //console.log(jwt_decode(data.data?.token))
-  
+    //const isFetchBaseQueryErrorType = (error: any): error is FetchBaseQueryError => 'status' in error
+
+    /*const Auth = async (data) => {
+        await createUser({email:data.email,password:password})
+    }*/
+
+
     return(
         <div className={s.auth}>
             {auth ? 'Registrarion':'Log In' }
@@ -71,10 +71,10 @@ export default function Auth () {
             </div>
 
             
-            <Link href='/app/task'>
+            
                 <button className={s.but} onClick={()=>{clisk()}}>{auth ? 'Registrarion':'Log In' }
                 </button>
-            </Link>
+            
             <div className={s.errorLoginRegistration}>
                 {auth ? data?.error?.data?.message : data2?.error?.data?.message}
             </div>

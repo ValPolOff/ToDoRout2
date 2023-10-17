@@ -8,7 +8,7 @@ import { getToken } from '../store/token';
 
 export const api = createApi({
     reducerPath: 'api',
-    tagTypes:['Task'],
+    tagTypes:['Task','User'], 
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000/api',
         prepareHeaders: (headers/*, { getState }*/) => {
@@ -25,8 +25,11 @@ export const api = createApi({
     endpoints: builder => ({
         getTask: builder.query<IData, {sort:string;page:number}>({
             query:(e)=>`/post?sort=${e.sort}&page=${e.page}`,
-            providesTags:() => ['Task']
+            providesTags:() => ['Task'],
+            
+            
         }),
+        
         createTask: builder.mutation<ITask, {text:string;completed:boolean}>({
            query: (post) => ({
             body: post,
@@ -59,13 +62,13 @@ export const api = createApi({
              method: 'POST',
  
             }),
-            //invalidatesTags:['Task']
+            //invalidatesTags:['User']
          }),
          getCheck: builder.query<IUserToken, null>({
             query: () => ({
              url:'/user/auth',
             }),
-            //invalidatesTags:['Task']
+            //invalidatesTags:['User']
          }),
          createLogin: builder.mutation<IUserToken, {email:string;password:string}>({
             query: (user) => ({
@@ -74,8 +77,16 @@ export const api = createApi({
              method: 'POST',
  
             }),
-            
-            //invalidatesTags:['Task']
+
+                //invalidatesTags:['Task']
+             }),
+        updateUser: builder.mutation<IUserToken, {email:string;password:string;newPassword:string}>({
+            query: (user) => ({
+                body: user,
+                url:'/user/updateInfo',
+                method: 'PUT'
+        }),   
+            //invalidatesTags:['User']
          }),
          
     })
@@ -88,4 +99,5 @@ export const {useGetTaskQuery,
             useUpdateTaskMutation,
             useCreateUserMutation,
             useGetCheckQuery, 
-            useCreateLoginMutation} = api;
+            useCreateLoginMutation,
+            useUpdateUserMutation} = api;

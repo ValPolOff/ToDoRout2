@@ -36,7 +36,7 @@ export default function PopUpSort (props:ModalType) {
               <button className={s.allAll}  onClick={() => {props.name('All'), props.setSort(''),props.count(1)}}>
                 <Image src={done1} width={25} height={25} alt='yesAll'/>
                 All
-                </button>
+              </button>
               <button className={s.allDone}  onClick={() => {props.name('Done'),props.setSort('true'),props.count(1)}}>
                <Image src={done1} width={25} height={25} alt='yesDone'/>
                Done
@@ -44,7 +44,7 @@ export default function PopUpSort (props:ModalType) {
               <button className={s.allUndone}  onClick={() => {props.name('Undone'), props.setSort('false'),props.count(1)}}>
                 <Image src={done1} width={25} height={25} alt='yesUndone'/>
                 Undone 
-                </button>
+              </button>
             </div>
 
           </div>

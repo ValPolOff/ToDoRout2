@@ -17,7 +17,9 @@ import Vector from '../../../public/Vector.svg'
 import Vector1 from '../../../public/Vector (1).svg'
 import done1 from '../../../public/done 1 (1).svg'
 import done2 from '../../../public/done 1.svg'
-
+import { ITask } from "../types/ITask";
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Panel() {
@@ -33,7 +35,7 @@ export default function Panel() {
     const [name,setName] = useState('All');
     const [sort,setSort] = useState('ASK')
     const [count,setCount] = useState(1)
-    const [task,setTask] = useState([])
+    const [task,setTask] = useState<[ITask] | undefined>()
     
     useEffect(()=>{
         console.log(textTask,'1')
@@ -42,7 +44,7 @@ export default function Panel() {
     
         const page = count;
         const pageAndSort = {sort, page}
-        const {isLoading, data } = useGetTaskQuery(pageAndSort)
+        const {isLoading, data } = useGetTaskQuery(pageAndSort,{refetchOnMountOrArgChange:true})
         console.log(name)
         console.log(data)
 
@@ -51,15 +53,26 @@ export default function Panel() {
         setSort(sort)
       },[sort])
 
-      
-      /*useEffect(()=>{
-        setTask(data?.rows)
-      },[data])*/
+      useEffect(()=>{
+        setTimeout(()=>{setTask(data?.rows)
+        console.log(data?.rows)},100)
+      },[data?.rows])
+
 
 
     return (
         <div>
-            
+            <ToastContainer position="bottom-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="dark"
+            />
             <div className={s.panel}>
                 <div>
                     <button className={s.panelToday} onClick={()=>{setSort('Today'),setCount(1),setValue('')}}>
@@ -81,7 +94,7 @@ export default function Panel() {
                 </div>
 
                 <div className={s.text}>
-                {(data?.count ?? count) /5 <= 1 ? <></>:<SortData count={count} setCount={setCount} textTask={textTask} sort={data?.count}/>}                  
+                                  
                         
                         {   isLoading ? 'Loading...': task?.map((text1,index)=>{
                         return (
@@ -90,7 +103,7 @@ export default function Panel() {
                             </>
                         )})
                         }
-                        
+                        {(data?.count ?? count) /5 <= 1 ? <></>:<SortData count={count} setCount={setCount} textTask={textTask} sort={data?.count}/>}
                 </div>
           
             </div>

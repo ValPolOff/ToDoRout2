@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const {User, Post} = require('../models/models')
 //const {User} = require('../migrations/20231010094628-Create-User-Table')
 const validator = require('validator')
+const { where } = require('sequelize')
 const generateJWT = (id,email,role) => {
     return jwt.sign(
         {id,email,role}, 
@@ -50,6 +51,23 @@ class UserController {
         const token = generateJWT(req.user.id, req.user.email, req.user.role)
         return res.json({token})
     }
+    async updateInfo (req,res,next) {
+        const {email, password, newPassword,role} = req.body
+        const user = await User.findOne({where:{email}})
+        if (!user) {
+            return next(ApiError.internal('Пользователь не найден'))
+        }
+        let comparePassword = bcrypt.compareSync(password, user.password)
+        if (!comparePassword) {
+            return next(ApiError.internal('Неверный пароль'))
+        }
+        const hashNewPassword = await bcrypt.hash(newPassword,5)
+        const userUpdate = await User.update({email,role,password:hashNewPassword}, {where:{email:email}})
+        const token = generateJWT(userUpdate.id,userUpdate.email,userUpdate.role)
+        return res.json({token})
+    }
+
 }
+
 
 module.exports = new UserController()

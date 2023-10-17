@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCreateTaskMutation } from "../api/api";
 import save from '../../../public/Check_ring.svg'
 import close from '../../../public/material-symbols_today.svg'
+import { ToastContainer, toast } from "react-toastify";
 
 interface ModalType {
     children?: ReactNode;
@@ -32,7 +33,16 @@ export default function ModalSave (props: ModalType) {
         }
       };
       const [createTask] = useCreateTaskMutation()
-      
+      const notify = () => toast.success(`Save task "${taskN}"`, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
       return (
         <>
           {props.isOpen && props.value === '1' && (
@@ -43,7 +53,7 @@ export default function ModalSave (props: ModalType) {
                   <div className={s.h1}>Create task</div>
                   <input tabIndex={0} onKeyDown={handleKeyDown} className={s.interTask} placeholder="Enter text..." value={taskN} onChange={(event) => setTask(event.target.value)} autoFocus></input>
                   <div className={s.blockH1}>
-                    <button className={s.save} onClick={() => {props.objTask.map((e)=>e.text).includes(taskN) || taskN.replaceAll(' ','')==='' || taskN.length === 0 ? setErrorText('You did not enter text or such a task already exists') : (setErrorText(''),props.toggle(),setTask(''),createTask({text:taskN, completed:false}))}}>
+                    <button className={s.save} onClick={() => {notify(),props.objTask.map((e)=>e.text).includes(taskN) || taskN.replaceAll(' ','')==='' || taskN.length === 0 ? setErrorText('You did not enter text or such a task already exists') : (setErrorText(''),props.toggle(),setTask(''),createTask({text:taskN, completed:false}))}}>
                       <Image alt='okTask' src={save} width={25} height={25} />
                       Save
                     </button>

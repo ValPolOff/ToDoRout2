@@ -8,6 +8,7 @@ import Token from '../token/Token'
 import { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
 import profile from '../../../public/bi_person-circle.svg'
+import { useRouter } from 'next/navigation'
 
 
 
@@ -23,11 +24,13 @@ export default function Header () {
         )
     }*/
 
-
+    //const route = useRouter()
     return (
         
         <header className={style.header}>
-            <div className={style.toDo}>To Do</div>
+            
+                <div className={style.toDo}><Link href={'/app/task'}>To Do</Link></div>
+            
             <div className={style.userName}>{!isAuth() ? 'User Name': Token()}</div>
             <Link href='/app/settings'>
                 <button>

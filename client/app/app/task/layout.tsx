@@ -1,7 +1,13 @@
 "use client" 
+import '../../globals.css'
 import Header from '@/app/component/Header/Header'
 import Panel from '@/app/component/panel/Panel'
+import { isAuth } from '@/app/component/store/token';
 import type { Metadata } from 'next'
+import React, {useEffect ,ReactNode} from 'react';
+import { useRouter } from 'next/navigation';
+import AssistWalkerIcon from '@mui/icons-material/AssistWalker';
+import { pink } from '@mui/material/colors';
 //import { Inter } from 'next/font/google'
 
 //const inter = Inter({ subsets: ['latin'] })
@@ -17,16 +23,27 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   //console.log(localStorage.getItem('token'))
-
+  const route = useRouter()
+  const noAuth = () => {
+    setTimeout(()=>{
+      route.push('/app/login')
+    },5000)
+    return (
+      <h1>
+        You are not registred. You will be redirected to the login page
+        <AssistWalkerIcon sx={{ color: pink[500], fontSize: 40 }}></AssistWalkerIcon>
+      </h1>
+    )
+  }
 
 
   return (
     <html lang="en">
       <body>
-
+          
           {children}
           <Header />
-          <Panel/>
+          {isAuth() ?  <Panel/> : noAuth()}
 
       </body>
     </html>
