@@ -45,14 +45,15 @@ export default function TaskToDo (props:ModalType) {
         props.setObjTask(props.objTask)
     },[props.text1])
         const [updateTask] = useUpdateTaskMutation()
-        console.log(new Date().getUTCFullYear().toString() + '-'+ (new Date().getUTCMonth()+1).toString() +'-'+ (new Date().getUTCDate().toString() > '10' ? new Date().getUTCDate().toString() : '0' + new Date().getUTCDate().toString()));
+        //console.log(new Date().getUTCFullYear().toString() + '-'+ (new Date().getUTCMonth()+1).toString() +'-'+ (new Date().getUTCDate().toString() > '10' ? new Date().getUTCDate().toString() : '0' + new Date().getUTCDate().toString()));
         const [checked, setChecked] = React.useState(false);
         const containerRef = React.useRef<HTMLElement>(null);
       
         const handleChange = () => {
           setChecked((prev) => !prev);
         };
-        
+        console.log(props.text1.createdAt.slice(0,10))
+        console.log(new Date().getUTCFullYear().toString() + '-'+ (new Date().getUTCMonth()+1).toString() +'-'+ (new Date().getUTCDate().toString() > '9' ? new Date().getUTCDate().toString() : '0' + new Date().getUTCDate().toString()))
         return (
             <>
             <div key={props.index}>
@@ -69,7 +70,9 @@ export default function TaskToDo (props:ModalType) {
                         <div className={s.task2}>
                             
                             
-                            {<div >{props.text1.createdAt.slice(0,10) === new Date().getUTCFullYear().toString() + '-'+ (new Date().getUTCMonth()+1).toString() +'-'+ (new Date().getUTCDate().toString() > '9' ? new Date().getUTCDate().toString() : '0' + new Date().getUTCDate().toString()) ? `Today ${props.text1.createdAt.slice(11,19)}`: props.text1.createdAt.slice(0,10)}</div>}
+                            {<div >{props.text1.createdAt.slice(0,10) === new Date().getUTCFullYear().toString() + '-'+ (new Date().getUTCMonth()+1).toString() +'-'+ (new Date().getUTCDate().toString() < '9' ? new Date().getUTCDate().toString() : '0' + new Date().getUTCDate().toString()) ? `Today ${props.text1.createdAt.slice(11,19)}`: props.text1.createdAt.slice(0,10)}</div>}
+                            
+                            
                             <button onClick={() => { toggle();}}>
                                 <Image alt='settings'  src={settings} width={4} height={4} />
                             </button>

@@ -54,8 +54,10 @@ export default function Panel() {
       },[sort])
 
       useEffect(()=>{
-        setTimeout(()=>{setTask(data?.rows)
-        console.log(data?.rows)},100)
+         setTask(data?.rows)
+        
+        /*setTimeout(()=>{setTask(data?.rows)
+        console.log(data?.rows)},100)*/
       },[data?.rows])
 
 
